@@ -3,7 +3,7 @@ Image cutting, comparison and save.
 
 ### Usage
 
-python Lancher.py
+python Launcher.py
 
 
 ### Package require
