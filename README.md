@@ -30,6 +30,10 @@ Image Dir root
     |           ------------img_2.png
     |
     --------- RealSR_EDSR
+    |           |
+    |           ------------img_1.png
+    |           |
+    |           ------------img_2.png
     |
     --------- RealSR_ESRGAN
     |
