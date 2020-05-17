@@ -8,7 +8,7 @@ python Launcher.py
 
 ### Package require
 
--PyQt5 
+-PyQt5  (sudo apt-get install python3-pyqt5)
 
 -numpy 
 
@@ -17,6 +17,8 @@ python Launcher.py
 -pillow
 
 ### Image Dir root hierarchy
+
+#### HR folder is necessary
 
 ````
 Image Dir root
@@ -33,4 +35,6 @@ Image Dir root
     |
     --------- RealSR_DASR
     ......
+    |
+    --------- HR
 ````
