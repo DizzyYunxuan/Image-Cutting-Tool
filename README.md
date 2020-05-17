@@ -18,7 +18,7 @@ python Launcher.py
 
 ### Image Dir root hierarchy
 
-#### HR folder is necessary
+#### HR folder is necessary and every image from each subdir should be the same name.
 
 ````
 Image Dir root
