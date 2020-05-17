@@ -92,9 +92,13 @@ class CMWindow(QtWidgets.QWidget):
                                 resize_flag)
             cropped_img_dict[subdir] = cropped_imgs
 
+        if resize_flag == 'Crop square area':
+            h, w = (max(h, w), max(h, w))
 
         HR_wRect = draw_HRrec(self.HR_path,
                               left, upper, h, w, self.color_dict[self.UI_obj.edge_colorcbox.currentText()], self.UI_obj.edgeWidthLine.text())
+
+
 
 
         content_widget = QtWidgets.QWidget()
