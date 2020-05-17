@@ -40,5 +40,5 @@ Image Dir root
     --------- RealSR_DASR
     ......
     |
-    --------- HR
+    --------- HR    # HR folder IS NECESSARY
 ````
