@@ -1,6 +1,11 @@
 # Image-cutting-tool
 Image cutting, comparison and save.
 
+### Usage
+
+python Lancher.py
+
+
 ### Package require
 
 -PyQt5 
