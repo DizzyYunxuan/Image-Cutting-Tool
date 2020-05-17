@@ -71,7 +71,9 @@ class CMWindow(QtWidgets.QWidget):
         dir_root_path = QtWidgets.QFileDialog.getExistingDirectory(None,
                                                                    "choose directory",
                                                                    "E:/Workplace/visuals/Cropped_for_paper")
+
         if dir_root_path:
+                self.UI_obj.saveDirRoot.clear()
                 self.UI_obj.saveDirRoot.addItem(dir_root_path)
                 self.UI_obj.saveDirRoot.setFont(QtGui.QFont('Times', 11))
 
