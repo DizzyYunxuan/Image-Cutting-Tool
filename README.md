@@ -1,7 +1,10 @@
 # Image-cutting-tool
 Image cutting, comparison and save.
 
+![Demo.png](https://postimg.cc/fkYHpZSS)
+
 ### Usage
+
 
 python Launcher.py
 

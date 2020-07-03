@@ -156,7 +156,7 @@ class CMWindow(QtWidgets.QWidget):
             self.UI_obj.new_tab.setObjectName('tab_{}'.format(num_tab - 1))
 
             self.UI_obj.new_tab.setGeometry(self.UI_obj.tab_1.geometry())
-            self.UI_obj.new_tab.setWidgetResizable(True)
+            self.UI_obj.new_tab.setWidgetResizable(False)
             self.UI_obj.patchTab.insertTab(num_tab, self.UI_obj.new_tab, 'Patch Group {}'.format(num_tab+1))
             self.UI_obj.patchTab.setCurrentIndex(num_tab)
 
