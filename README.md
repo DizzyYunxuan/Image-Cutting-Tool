@@ -1,7 +1,7 @@
 # Image-cutting-tool
 Image cutting, comparison and save.
 
-[![Demo.png](https://i.postimg.cc/y6bwJ8Vj/Demo.png)](https://postimg.cc/fkYHpZSS)
+[![Demo.png](https://i.postimg.cc/8CnzjVs6/Demo.png)](https://postimg.cc/QB13ywQ8)
 
 ### Usage
 
