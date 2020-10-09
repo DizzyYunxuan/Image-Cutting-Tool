@@ -1,7 +1,7 @@
 # Image-cutting-tool
 Image cutting, comparison and save.
 
-[![ezgif-2-1e85ad1facbf.gif](https://i.postimg.cc/50FSdqtN/ezgif-2-1e85ad1facbf.gif)](https://postimg.cc/8JN6LvWq)
+[ezgif-2-1e85ad1facbf.gif](https://postimg.cc/8JN6LvWq)
 
 ### Usage
 
