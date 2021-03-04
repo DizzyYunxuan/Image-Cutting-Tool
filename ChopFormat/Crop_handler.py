@@ -13,19 +13,22 @@ def crop(img_root, subdirs, img_name, left, upper, h, w, color, edge_width, resi
         h, w = max(h, w), max(h, w)
     img = np.array(Image.open(os.path.join(img_root, subdirs, img_name)))
 
-    img = img[upper:upper+w, left:left+h, :3].copy()
+    img = img[upper:upper+w, left:left+h, ...].copy()
 
     if resize_flag == 'Resize to square':
         h, w = (max(h, w), max(h, w))
         img = cv2.resize(img, (max(h, w), max(h, w)), cv2.INTER_LINEAR)
-    H, W, _ = img.shape
+    if len(img.shape) == 3:
+        H, W, _ = img.shape
+    else:
+        H, W = img.shape
     img = cv2.rectangle(img, (0, 0), (W, H), color=color, thickness=int(edge_width))
     return img, (h, w)
 
 
 def draw_HRrec(HR_path, left, upper, h, w, color, edge_width):
     img = np.array(Image.open(HR_path))
-    img_HR = cv2.rectangle(img, (left, upper), (left + h, upper + w), color, thickness=int(edge_width))
+    img_HR = cv2.rectangle(img, (left, upper), (left + h, upper + w), color, thickness=int(int(edge_width)*(img.shape[0]/2048)))
 
     return img_HR
 

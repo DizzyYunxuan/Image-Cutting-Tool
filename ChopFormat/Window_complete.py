@@ -13,8 +13,9 @@ class CMWindow(QtWidgets.QWidget):
         self.UI_obj.setupUi(MainWindow)
         self.color_dict = {'Blue': (0, 0, 255), 'Red': (255, 0, 0), 'Orange': (255, 127, 25)}
         self.UI_obj.fullimg = PainterLabel(5)
+        self.UI_obj.fullimg.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.UI_obj.patch_group = {}
-        self.UI_obj.HR_group ={}
+        self.UI_obj.HR_group = {}
         self.UI_obj.set_root.clicked.connect(self.setRoot)
         self.UI_obj.show_Fullimg.clicked.connect(self.show_Full_img)
         self.UI_obj.set_Saveroot_bt.clicked.connect(self.setSave)
@@ -29,21 +30,23 @@ class CMWindow(QtWidgets.QWidget):
         self.UI_obj.patchTab.installEventFilter(self)
         self.UI_obj.fullimg.drawRecFlag = False
 
+        self.UI_obj.sub_dir_list.activated[str].connect(self.onActivated)
+
     def setRoot(self):
         dir_root_path = QtWidgets.QFileDialog.getExistingDirectory(None,
                                                               "choose directory",
-                                                              "E:/Workplace/visuals/AIM")
+                                                              "E:\semantic-sr\FSHN_results\coco_stuff")
         if dir_root_path:
             self.UI_obj.imgDirRoot.addItem(dir_root_path)
             self.UI_obj.imgDirRoot.setFont(QtGui.QFont('Times', 11))
             self.UI_obj.imgDirRoot.setCurrentText(dir_root_path)
             self.subdirs = os.listdir(dir_root_path)
-            # subdirs_with_index = \
-            #     [str(i+1) + '-' + subdirs[i] for i in range(len(subdirs))]
             self.UI_obj.sub_dir_list.clear()
             self.UI_obj.sub_dir_list.addItems(self.subdirs)
             self.UI_obj.sub_dir_list.setFont(QtGui.QFont('Times', 11))
+            self.UI_obj.sub_dir_list.setCurrentText('HR')
             img_list = os.listdir(os.path.join(dir_root_path, 'HR'))
+
             self.UI_obj.img_list.clear()
             self.UI_obj.img_list.addItems(img_list)
             self.UI_obj.img_list.setFont(QtGui.QFont('Times', 11))
@@ -53,11 +56,17 @@ class CMWindow(QtWidgets.QWidget):
         s = os.path.join(str(self.UI_obj.imgDirRoot.currentText()),
                          str(self.UI_obj.sub_dir_list.currentText()),
                          str(self.UI_obj.img_list.currentText()))
-        self.HR_path = os.path.join(self.UI_obj.imgDirRoot.currentText(), 'HR', self.UI_obj.img_list.currentText())
+        if os.path.exists(os.path.join(self.UI_obj.imgDirRoot.currentText(), 'HR', self.UI_obj.img_list.currentText()).split('.')[0] + '.png'):
+
+            self.HR_path = os.path.join(self.UI_obj.imgDirRoot.currentText(), 'HR', self.UI_obj.img_list.currentText().split('.')[0] + '.png')
+        elif os.path.join(self.UI_obj.imgDirRoot.currentText(), 'HR', self.UI_obj.img_list.currentText().split('.')[0] + '.jpg'):
+            self.HR_path = os.path.join(self.UI_obj.imgDirRoot.currentText(), 'HR', self.UI_obj.img_list.currentText().split('.')[0] + '.jpg')
+
         if self.UI_obj.img_list.currentText():
             self.pixmap = QtGui.QPixmap(s)
             self.UI_obj.fullimg.setPixmap(self.pixmap)
             self.UI_obj.fullimg.adjustSize()
+            # print(self.UI_obj.fullimg.size())
             self.UI_obj.fullimg_window.setBackgroundRole(QtGui.QPalette.Dark)
             self.UI_obj.fullimg_window.setWidget(self.UI_obj.fullimg)
             self.UI_obj.fullimg.setMouseTracking(True)
@@ -70,7 +79,7 @@ class CMWindow(QtWidgets.QWidget):
     def setSave(self):
         dir_root_path = QtWidgets.QFileDialog.getExistingDirectory(None,
                                                                    "choose directory",
-                                                                   "E:/Workplace/visuals/Cropped_for_paper")
+                                                                   "E:\semantic-sr\cropped")
 
         if dir_root_path:
                 self.UI_obj.saveDirRoot.clear()
@@ -86,7 +95,16 @@ class CMWindow(QtWidgets.QWidget):
 
         cropped_img_dict = {}
         for subdir in self.subdirs:
-            cropped_imgs, resize = crop(self.UI_obj.imgDirRoot.currentText(), subdir, self.UI_obj.img_list.currentText(),
+            img_name = self.UI_obj.img_list.currentText().split('.')[0]
+            if os.path.exists(os.path.join(self.UI_obj.imgDirRoot.currentText(), subdir, img_name + '.png')):
+                img_name = img_name + '.png'
+            elif os.path.exists(os.path.join(self.UI_obj.imgDirRoot.currentText(), subdir, img_name + '.jpg')):
+                img_name = img_name + '.jpg'
+            else:
+                QtWidgets.QMessageBox.warning(self,
+                                              "Warning", "{} is not exists!".format(os.path.join(self.UI_obj.imgDirRoot.currentText(), subdir, img_name + '.png')),
+                                              QtWidgets.QMessageBox.Cancel)
+            cropped_imgs, resize = crop(self.UI_obj.imgDirRoot.currentText(), subdir, img_name,
                                 left, upper, h, w,
                                 self.color_dict[self.UI_obj.edge_colorcbox.currentText()], self.UI_obj.edgeWidthLine.text(),
                                 resize_flag)
@@ -206,6 +224,17 @@ class CMWindow(QtWidgets.QWidget):
                 return False
         return False
 
+    def onActivated(self, text):
+        dir_root_path = self.UI_obj.imgDirRoot.currentText()
+        self.UI_obj.sub_dir_list.clear()
+        self.UI_obj.sub_dir_list.addItems(self.subdirs)
+        self.UI_obj.sub_dir_list.setFont(QtGui.QFont('Times', 11))
+        self.UI_obj.sub_dir_list.setCurrentText(text)
+        img_list = os.listdir(os.path.join(dir_root_path, text))
+
+        self.UI_obj.img_list.clear()
+        self.UI_obj.img_list.addItems(img_list)
+        self.UI_obj.img_list.setFont(QtGui.QFont('Times', 11))
 
 
 
