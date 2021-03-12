@@ -35,7 +35,7 @@ class CMWindow(QtWidgets.QWidget):
     def setRoot(self):
         dir_root_path = QtWidgets.QFileDialog.getExistingDirectory(None,
                                                               "choose directory",
-                                                              "E:\semantic-sr\FSHN_results\coco_stuff")
+                                                              "/media/4T/Dizzy/BasicSR-master/Final_Images/2020-12-26_results/ori")
         if dir_root_path:
             self.UI_obj.imgDirRoot.addItem(dir_root_path)
             self.UI_obj.imgDirRoot.setFont(QtGui.QFont('Times', 11))
@@ -45,7 +45,7 @@ class CMWindow(QtWidgets.QWidget):
             self.UI_obj.sub_dir_list.addItems(self.subdirs)
             self.UI_obj.sub_dir_list.setFont(QtGui.QFont('Times', 11))
             self.UI_obj.sub_dir_list.setCurrentText('HR')
-            img_list = os.listdir(os.path.join(dir_root_path, 'HR'))
+            img_list = sorted(os.listdir(os.path.join(dir_root_path, 'HR')))
 
             self.UI_obj.img_list.clear()
             self.UI_obj.img_list.addItems(img_list)
@@ -79,7 +79,7 @@ class CMWindow(QtWidgets.QWidget):
     def setSave(self):
         dir_root_path = QtWidgets.QFileDialog.getExistingDirectory(None,
                                                                    "choose directory",
-                                                                   "E:\semantic-sr\cropped")
+                                                                   "/media/4T/Dizzy/BasicSR-master/Final_Images/2020-12-26_results/ori")
 
         if dir_root_path:
                 self.UI_obj.saveDirRoot.clear()
