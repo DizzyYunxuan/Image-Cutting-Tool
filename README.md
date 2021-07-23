@@ -5,12 +5,12 @@ Image cutting, comparison and save.
 
 ### Usage
 
-
+```
 python Launcher.py
-
+```
 
 ### Package require
-
+```
 -PyQt5  (sudo apt-get install python3-pyqt5)
 
 -numpy 
@@ -18,7 +18,7 @@ python Launcher.py
 -opencv-python
 
 -pillow
-
+```
 ### Image Dir root hierarchy
 
 #### HR folder is necessary and every image from each subdir should be the same name.
@@ -26,21 +26,21 @@ python Launcher.py
 ````
 Image Dir root
     |
-    --------- RealSR_SRCNN
+    |-------- RealSR_SRCNN
     |           |
     |           ------------img_1.png
     |           |
     |           ------------img_2.png
     |
-    --------- RealSR_EDSR
+    |-------- RealSR_EDSR
     |           |
     |           ------------img_1.png
     |           |
     |           ------------img_2.png
     |
-    --------- RealSR_ESRGAN
+    |-------- RealSR_ESRGAN
     |
-    --------- RealSR_DASR
+    |-------- RealSR_DASR
     ......
     |
     --------- HR    # HR folder IS NECESSARY
